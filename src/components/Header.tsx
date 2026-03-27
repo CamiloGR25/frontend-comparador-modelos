@@ -41,7 +41,7 @@ export function Header({
         <div className="button-group wrap">
           {featuredExamples.map((example) => (
             <button key={example.text} type="button" className="button button-secondary" onClick={() => onChangeMessage(example.text)}>
-              {example.category.replaceAll('_', ' ')}
+              {example.category.replace('_', ' ')}
             </button>
           ))}
           <button type="button" className="button button-accent" onClick={onUseRandom}>
