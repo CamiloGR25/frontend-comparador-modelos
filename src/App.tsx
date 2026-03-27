@@ -1,13 +1,18 @@
+import { BootError } from './components/BootError';
+import { BootLoader } from './components/BootLoader';
 import { ComparisonPanel } from './components/ComparisonPanel';
 import { GuidePanel } from './components/GuidePanel';
 import { Header } from './components/Header';
 import { HistoryPanel } from './components/HistoryPanel';
 import { ModelCard } from './components/ModelCard';
 import { exampleBank } from './constants/examples';
-import { pickRandomExample } from './lib/examples';
+import { useApiBoot } from './hooks/useApiBoot';
 import { useCompareModels } from './hooks/useCompareModels';
+import { pickRandomExample } from './lib/examples';
 
 function App() {
+  const { booting, bootError, seconds, dots, loadingMessage } = useApiBoot();
+
   const {
     message,
     setMessage,
@@ -19,6 +24,20 @@ function App() {
     compareAll,
     clearAll,
   } = useCompareModels(exampleBank[0].text);
+
+  if (booting) {
+    return (
+      <BootLoader
+        seconds={seconds}
+        dots={dots}
+        loadingMessage={loadingMessage}
+      />
+    );
+  }
+
+  if (bootError) {
+    return <BootError message={bootError} />;
+  }
 
   return (
     <main className="app-shell">
