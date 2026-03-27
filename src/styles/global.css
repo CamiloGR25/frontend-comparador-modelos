@@ -275,8 +275,9 @@ h3 {
   .button-group {
     flex-direction: column;
   }
+}
 
-  .boot-loader {
+.boot-loader {
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -361,5 +362,4 @@ h3 {
   100% {
     transform: translateX(320%);
   }
-}
 }
