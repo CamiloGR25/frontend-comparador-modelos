@@ -16,26 +16,38 @@ export function tokenOverlap(a: string, b: string): number {
   return Math.round((match / Math.max(ta.size, tb.size)) * 100);
 }
 
-export function estimateContextBehavior(model: 'rnn' | 'lstm' | 'transformer', prompt: string): string {
-  const normalized = normalizeText(prompt);
-  const words = normalized.split(/\s+/).filter(Boolean);
-  const longContext = words.length > 28;
-  const hasReference = /\b(él|ella|ellos|ellas|se lo|se la|quién|quien)\b/.test(normalized);
-  const hasSequence = /\b(luego|después|despues|al final|primero|segundo|tercero)\b/.test(normalized);
-
+export function estimateContextBehavior(
+  model: 'rnn' | 'lstm' | 'transformer',
+  _prompt: string
+): string {
   if (model === 'rnn') {
-    return longContext || hasReference
-      ? 'Probable pérdida de contexto lejano o ambigüedad en referencias.'
-      : 'Se espera respuesta basada sobre todo en la información más reciente.';
+    return [
+      'Un modelo secuencial que procesa el texto paso a paso y solo conserva una parte limitada del contexto reciente.',
+      '',
+      '• El sistema solo recuerda las últimas 3 palabras.',
+      '• Procesa la secuencia en orden.',
+      '• Puede perder información importante si apareció mucho antes en el mensaje.',
+      '• Falla en interpretar referencias cuando el contexto necesario queda fuera de su memoria inmediata.',
+    ].join('\n');
   }
 
   if (model === 'lstm') {
-    return longContext && hasReference
-      ? 'Debería retener parte del contexto, aunque puede confundir dependencias largas.'
-      : 'Probablemente conserve mejor el contexto relevante que la RNN.';
+    return [
+      'Una arquitectura recurrente mejorada que puede conservar información relevante durante más tiempo gracias a un mecanismo de memoria más estable.',
+      '',
+      '• El sistema tiene una memoria más larga que la RNN básica.',
+      '• Puede conservar mejor información relevante del mensaje.',
+      '• Mejora la interpretación, especialmente cuando la referencia depende de partes previas del texto.',
+      '• Aun así, su capacidad sigue siendo limitada, sobre todo en relaciones largas o complejas.',
+    ].join('\n');
   }
 
-  return hasSequence || hasReference || longContext
-    ? 'Tiene mejores condiciones para conectar información distribuida en el mensaje.'
-    : 'Puede aprovechar atención global incluso en prompts cortos.';
+  return [
+    'Una arquitectura que modela relaciones entre todas las palabras del mensaje mediante mecanismos de atención.',
+    '',
+    '• Todas las palabras se conectan entre sí dentro del análisis del mensaje.',
+    '• El sistema no depende solo de memoria acumulativa paso a paso.',
+    '• Se incorpora una visualización tipo red para mostrar relaciones de atención.',
+    '• Puede identificar mejor qué partes del contexto son más relevantes para responder.',
+  ].join('\n');
 }

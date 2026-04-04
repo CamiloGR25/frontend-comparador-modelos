@@ -53,11 +53,12 @@ export function ModelCard({ modelKey, result, loading, prompt }: ModelCardProps)
         </div>
       </div>
 
-      <div className="info-box">
+     <div className="info-box">
         <h3>Lectura pedagógica del contexto</h3>
-        <p>{estimateContextBehavior(modelKey, prompt)}</p>
+        <p style={{ whiteSpace: 'pre-line' }}>
+          {estimateContextBehavior(modelKey, prompt)}
+        </p>
       </div>
-
       {result ? (
         <div className="info-box inline-metric">
           <strong>Tiempo de respuesta:</strong>
