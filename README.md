@@ -24,6 +24,7 @@ VITE_API_BASE_URL=http://127.0.0.1:8000
 ## Dónde se ajustan los ejemplos
 
 ### Banco completo de ejemplos aleatorios
+
 Edita:
 
 `src/constants/examples.ts`
@@ -37,6 +38,7 @@ export const exampleBank = [
 ```
 
 ### Cantidad de botones rápidos visibles
+
 En el mismo archivo, cambia esta línea:
 
 ```ts
@@ -66,7 +68,3 @@ src/
 - `ModelCard` presenta cada respuesta.
 - `ComparisonPanel` compara similitud.
 - `HistoryPanel` guarda pruebas hechas.
-
-## Nota sobre CORS
-
-Tu backend debe permitir peticiones desde `http://127.0.0.1:5173` o `http://localhost:5173`.

@@ -18,7 +18,7 @@ export function BootLoader({ seconds, dots, loadingMessage }: BootLoaderProps) {
           <p className="boot-loader__time">Tiempo transcurrido: {seconds}s</p>
 
           <p className="boot-loader__hint">
-            El primer inicio puede tardar unos segundos porque el backend está en Render gratuito.
+            El primer inicio puede tardar unos segundos...
           </p>
 
           <div className="boot-loader__bar">
